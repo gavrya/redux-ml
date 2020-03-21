@@ -2,10 +2,7 @@
   "name": "redux-hot-module",
   "version": "0.0.1",
   "description": "redux-hot-module",
-  "main": "lib/index.js",
-  "files": [
-    "lib"
-  ],
+  "main": "index.js",
   "repository": "https://github.com/gavrya/redux-hot-module.git",
   "homepage": "https://github.com/gavrya/redux-hot-module#readme",
   "author": "Havryshchuk Oleksandr",
