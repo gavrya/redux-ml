@@ -1,2 +1,2 @@
-# redux-rm
-redux modules
+# redux-hot-module
+redux-hot-module in progress
