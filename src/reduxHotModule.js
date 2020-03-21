@@ -79,7 +79,7 @@ const reduxHotModule = (module, preloadedState = null) => {
 
     const mapDispatchToProps = { ...actions };
 
-    const withStateProps = connect(mapStateToProps, mapDispatchToProps);
+    const withModuleProps = connect(mapStateToProps, mapDispatchToProps);
 
     return {
       namespace,
@@ -87,7 +87,7 @@ const reduxHotModule = (module, preloadedState = null) => {
       actions,
       reducer,
       defaultState,
-      withStateProps,
+      withModuleProps,
       mapStateToProps,
       mapDispatchToProps,
     };
