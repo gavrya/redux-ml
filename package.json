@@ -1,11 +1,18 @@
 {
   "name": "redux-hot-module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "redux-hot-module",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "files": [
-    "src"
+    "lib"
   ],
+  "scripts": {
+    "test": "echo \"Running tests for version $npm_package_version...\"",
+    "build": "cross-env NODE_ENV=production rimraf lib && babel src --out-dir lib",
+    "release": "yarn version",
+    "preversion": "yarn test && yarn build",
+    "postversion": "git push --tags && yarn publish . --tag $npm_package_version && git push && echo \"Successfully released version $npm_package_version!\""
+  },
   "repository": "https://github.com/gavrya/redux-hot-module.git",
   "homepage": "https://github.com/gavrya/redux-hot-module#readme",
   "author": "Havryshchuk Oleksandr",
@@ -22,13 +29,23 @@
     "redux": "^4.0.5"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
     "babel-eslint": "^10.1.0",
+    "babel-preset-minify": "^0.5.1",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "react": "^16.13.1",
     "react-redux": "^7.2.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.2"
   }
 }
