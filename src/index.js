@@ -1,3 +1,3 @@
-const reduxHotModule = require('./reduxHotModule');
+import reduxHotModule from './reduxHotModule';
 
-module.exports = reduxHotModule;
+export default reduxHotModule;

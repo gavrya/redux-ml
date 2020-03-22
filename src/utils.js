@@ -18,7 +18,7 @@ const mergeState = (toState, fromState) => {
   return state;
 };
 
-module.exports = {
+export {
   toUnderscore,
   toConst,
   mergeState,

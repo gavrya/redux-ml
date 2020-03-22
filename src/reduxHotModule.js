@@ -1,6 +1,6 @@
-const { connect } = require('react-redux');
+import { connect } from 'react-redux';
 
-const { toConst, mergeState } = require('./utils');
+import { toConst, mergeState } from './utils';
 
 const reduxHotModule = (module, preloadedState = null) => {
   const actionsMap = {};
@@ -25,7 +25,7 @@ const reduxHotModule = (module, preloadedState = null) => {
     addAction(name, {}, { isReset: true });
   };
 
-  const generate = () => {
+  const create = () => {
     const typeNamespace = `@@${module}`;
     const namespaceConst = toConst(module);
     const namespace = `${typeNamespace}/${namespaceConst}`;
@@ -97,8 +97,8 @@ const reduxHotModule = (module, preloadedState = null) => {
     addParamAction,
     addEventAction,
     addResetAction,
-    generate,
+    create,
   };
 };
 
-module.exports = reduxHotModule;
+export default reduxHotModule;
