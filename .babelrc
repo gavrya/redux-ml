@@ -1,14 +1,5 @@
 {
   "presets": [
-    ["@babel/preset-env", {
-      "loose": true,
-      "debug": true
-    }]
-  ],
-  "plugins": [
-    ["@babel/plugin-proposal-object-rest-spread", {
-      "loose": true,
-      "useBuiltIns": true
-    }]
+    ["@babel/preset-env", { "debug": true }]
   ]
 }

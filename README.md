@@ -1,32 +1,32 @@
 # redux-hot-module
-redux-hot-module in progress
+development in progress
 
 ## Usage example
 
 ```javascript
 import reduxHotModule from 'redux-hot-module';
 
-const m = reduxHotModule('searchResults');
+const ml = reduxHotModule('searchResults');
 
 // param actions
-m.addParamAction('posts', []);
-m.addParamAction('selectedPost', null);
-m.addParamAction('pageNumber', 1);
-m.addParamAction('pageSize', 10);
-m.addParamAction('loading', false);
-m.addParamAction('hasNext', false);
+ml.addParamAction('posts', []);
+ml.addParamAction('selectedPost', null);
+ml.addParamAction('pageNumber', 1);
+ml.addParamAction('pageSize', 10);
+ml.addParamAction('loading', false);
+ml.addParamAction('hasNext', false);
 
 // event actions
-m.addEventAction('loadNextEvent');
+ml.addEventAction('loadNextEvent');
 
 // reset action
-m.addResetAction('reset');
+ml.addResetAction('reset');
 
 export const {
   namespace,
   reducer,
   defaultState,
-  withModuleProps,
+  withProps,
   mapStateToProps,
   mapDispatchToProps,
   types: {
@@ -49,5 +49,5 @@ export const {
     loadNextEventAction,
     resetAction,
   },
-} = m.create();
+} = ml.create();
 ```
