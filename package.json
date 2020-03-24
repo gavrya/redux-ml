@@ -19,7 +19,8 @@
   "keywords": [
     "redux",
     "react redux",
-    "redux store",
+    "redux hot",
+    "redux hot module",
     "redux actions generator",
     "redux constants generator"
   ],
