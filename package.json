@@ -1,6 +1,6 @@
 {
   "name": "redux-hot-module",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "redux-hot-module",
   "main": "lib/index.js",
   "files": [
