@@ -67,7 +67,7 @@ const reduxHotModule = (module, preloadedState = null) => {
 
     const initialState = { ...defaultState };
 
-    if (typeof preloadedState === 'object') {
+    if (!!preloadedState && typeof preloadedState === 'object') {
       Object.keys(preloadedState).forEach((key) => {
         if (key in initialState) {
           initialState[key] = preloadedState[key];

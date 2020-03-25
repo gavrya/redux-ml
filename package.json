@@ -18,9 +18,8 @@
   "author": "Havryshchuk Oleksandr",
   "keywords": [
     "redux",
-    "react redux",
-    "redux hot",
-    "redux hot module",
+    "react-redux",
+    "redux-lazy",
     "redux actions generator",
     "redux constants generator"
   ],
