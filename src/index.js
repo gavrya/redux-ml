@@ -5,7 +5,7 @@ const toConst = (text) => text.replace(/([A-Z])/g, ($1) => `_${$1.toLowerCase()}
 const reduxHotModule = (module, preloadedState = null) => {
   const actionsRepo = {};
 
-  const addAction = (name, payload, meta) => {
+  const addAction = (name, meta) => {
     if (typeof name !== 'string') {
       throw new Error('Invalid action name.');
     }
@@ -14,19 +14,19 @@ const reduxHotModule = (module, preloadedState = null) => {
       throw new Error(`Action with the name "${name}" is already exist.`);
     }
 
-    actionsRepo[name] = { name, payload, meta };
+    actionsRepo[name] = { name, meta };
   };
 
   const addParamAction = (name, defaultValue = null) => {
-    addAction(name, { [name]: defaultValue }, { isParam: true });
+    addAction(name, { isParam: true, defaultValue });
   };
 
   const addEventAction = (name) => {
-    addAction(name, null, { isEvent: true });
+    addAction(name, { isEvent: true });
   };
 
   const addResetAction = (name) => {
-    addAction(name, null, { isReset: true });
+    addAction(name, { isReset: true });
   };
 
   const create = () => {
@@ -43,8 +43,7 @@ const reduxHotModule = (module, preloadedState = null) => {
     let defaultState = {};
 
     Object.values(actionsRepo).forEach((action) => {
-      const { name, payload: actionPayload, meta: actionMeta } = action;
-
+      const { name, meta } = action;
       const typeNameConst = toConst(name);
       const type = `${typeNamespace}/${typeNameConst}`;
       const typeName = `${namespaceConst}_${typeNameConst}`;
@@ -52,17 +51,17 @@ const reduxHotModule = (module, preloadedState = null) => {
 
       types[typeName] = type;
 
-      if (actionMeta.isParam) {
-        actions[actionName] = (payload = actionPayload) => ({ type, payload });
+      if (meta.isParam) {
+        const { defaultValue } = meta;
+        actions[actionName] = (value = defaultValue) => ({ type, payload: { [name]: value } });
+        defaultState = { ...defaultState, [name]: defaultValue };
         paramTypes.push(type);
-      } else if (actionMeta.isEvent) {
-        actions[actionName] = (payload = actionPayload) => (payload ? { type, payload } : { type });
-      } else if (actionMeta.isReset) {
+      } else if (meta.isEvent) {
+        actions[actionName] = () => ({ type });
+      } else if (meta.isReset) {
         actions[actionName] = () => ({ type });
         resetTypes.push(type);
       }
-
-      defaultState = { ...defaultState, ...actionPayload };
     });
 
     const initialState = { ...defaultState };
@@ -88,9 +87,7 @@ const reduxHotModule = (module, preloadedState = null) => {
     };
 
     const mapStateToProps = (state) => state[namespace];
-
     const mapDispatchToProps = { ...actions };
-
     const withProps = connect(mapStateToProps, mapDispatchToProps);
 
     return {
