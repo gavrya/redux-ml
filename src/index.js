@@ -1,38 +1,60 @@
 import { connect } from 'react-redux';
 
+const hasProp = (object, prop) => Object.prototype.hasOwnProperty.call(object, prop);
+
 const toConst = (text) => text.replace(/([A-Z])/g, ($1) => `_${$1.toLowerCase()}`).toUpperCase();
 
-const reduxHotModule = (module, preloadedState = null) => {
-  const actionsRepo = {};
+const mergeProps = (target, source) => {
+  if (!source || typeof source !== 'object') {
+    return target;
+  }
 
-  const addAction = (name, meta) => {
-    if (typeof name !== 'string') {
-      throw new Error('Invalid action name.');
+  const state = { ...target };
+
+  Object.keys(source).forEach((prop) => {
+    if (hasProp(state, prop)) {
+      state[prop] = source[prop];
     }
+  });
 
-    if (name in actionsRepo) {
-      throw new Error(`Action with the name "${name}" is already exist.`);
-    }
+  return state;
+};
 
-    actionsRepo[name] = { name, meta };
-  };
+const addAction = (actionsRepo, name, meta) => {
+  if (typeof name !== 'string') {
+    throw new Error('Invalid action name.');
+  }
 
-  const addParamAction = (name, defaultValue = null) => {
-    addAction(name, { isParam: true, defaultValue });
-  };
+  if (hasProp(this.actionsRepo, name)) {
+    throw new Error(`Action with the name "${name}" is already exist.`);
+  }
 
-  const addEventAction = (name) => {
-    addAction(name, { isEvent: true });
-  };
+  // eslint-disable-next-line no-param-reassign
+  actionsRepo[name] = { name, meta };
+};
 
-  const addResetAction = (name) => {
-    addAction(name, { isReset: true });
-  };
+class ReduxHotModule {
+  constructor(module, preloadedState = null) {
+    this.module = module;
+    this.preloadedState = preloadedState;
+    this.actionsRepo = {};
+  }
 
-  const create = () => {
-    const typeNamespace = `@@${module}`;
-    const namespaceConst = toConst(module);
-    const namespace = `${typeNamespace}/${namespaceConst}`;
+  addParamAction(name, defaultValue = null) {
+    addAction(this.actionsRepo, name, { isParam: true, defaultValue });
+  }
+
+  addEventAction(name) {
+    addAction(this.actionsRepo, name, { isEvent: true });
+  }
+
+  addResetAction(name) {
+    addAction(this.actionsRepo, name, { isReset: true });
+  }
+
+  create() {
+    const namespace = `@${this.module}`;
+    const namespaceConst = toConst(this.module);
 
     const types = {};
     const actions = {};
@@ -42,10 +64,10 @@ const reduxHotModule = (module, preloadedState = null) => {
 
     let defaultState = {};
 
-    Object.values(actionsRepo).forEach((action) => {
+    Object.values(this.actionsRepo).forEach((action) => {
       const { name, meta } = action;
       const typeNameConst = toConst(name);
-      const type = `${typeNamespace}/${typeNameConst}`;
+      const type = `${namespace}/${typeNameConst}`;
       const typeName = `${namespaceConst}_${typeNameConst}`;
       const actionName = `${name}Action`;
 
@@ -64,23 +86,15 @@ const reduxHotModule = (module, preloadedState = null) => {
       }
     });
 
-    const initialState = { ...defaultState };
-
-    if (!!preloadedState && typeof preloadedState === 'object') {
-      Object.keys(preloadedState).forEach((key) => {
-        if (key in initialState) {
-          initialState[key] = preloadedState[key];
-        }
-      });
-    }
+    const initialState = mergeProps(defaultState, this.preloadedState);
 
     const reducer = (state = initialState, action) => {
       if (paramTypes.includes(action.type)) {
-        return { ...state, ...action.payload };
+        return mergeProps(state, action.payload);
       }
 
       if (resetTypes.includes(action.type)) {
-        return { ...state, ...defaultState };
+        return { ...defaultState };
       }
 
       return state;
@@ -88,7 +102,7 @@ const reduxHotModule = (module, preloadedState = null) => {
 
     const mapStateToProps = (state) => state[namespace];
     const mapDispatchToProps = { ...actions };
-    const withProps = connect(mapStateToProps, mapDispatchToProps);
+    const withModuleProps = connect(mapStateToProps, mapDispatchToProps);
 
     return {
       namespace,
@@ -96,18 +110,11 @@ const reduxHotModule = (module, preloadedState = null) => {
       actions,
       reducer,
       defaultState,
-      withProps,
+      withModuleProps,
       mapStateToProps,
       mapDispatchToProps,
     };
-  };
+  }
+}
 
-  return {
-    addParamAction,
-    addEventAction,
-    addResetAction,
-    create,
-  };
-};
-
-export default reduxHotModule;
+export default ReduxHotModule;

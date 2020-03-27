@@ -4,9 +4,9 @@ development in progress
 ## Usage example
 
 ```javascript
-import reduxHotModule from 'redux-hot-module';
+import ReduxHotModule from 'redux-hot-module';
 
-const ml = reduxHotModule('searchResults');
+const ml = new ReduxHotModule('searchResults');
 
 // param actions
 ml.addParamAction('posts', []);
