@@ -1,4 +1,4 @@
-const { connect } = require('react-redux');
+import { connect } from 'react-redux';
 
 const hasProp = (object, prop) => Object.prototype.hasOwnProperty.call(object, prop);
 
@@ -117,4 +117,4 @@ class ReduxHotModule {
   }
 }
 
-module.exports = ReduxHotModule;
+export default { ReduxHotModule };

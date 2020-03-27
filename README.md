@@ -4,7 +4,7 @@ development in progress
 ## Usage example
 
 ```javascript
-import ReduxHotModule from 'redux-hot-module';
+import { ReduxHotModule } from 'redux-hot-module';
 
 const ml = new ReduxHotModule('searchResults');
 
@@ -26,7 +26,7 @@ export const {
   namespace,
   reducer,
   defaultState,
-  withProps,
+  withModuleProps,
   mapStateToProps,
   mapDispatchToProps,
   types: {
