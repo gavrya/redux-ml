@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+const { connect } = require('react-redux');
 
 const hasProp = (object, prop) => Object.prototype.hasOwnProperty.call(object, prop);
 
@@ -25,7 +25,7 @@ const addAction = (actionsRepo, name, meta) => {
     throw new Error('Invalid action name.');
   }
 
-  if (hasProp(this.actionsRepo, name)) {
+  if (hasProp(actionsRepo, name)) {
     throw new Error(`Action with the name "${name}" is already exist.`);
   }
 
@@ -117,4 +117,4 @@ class ReduxHotModule {
   }
 }
 
-export default ReduxHotModule;
+module.exports = ReduxHotModule;
