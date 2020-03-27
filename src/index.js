@@ -53,8 +53,8 @@ class ReduxHotModule {
   }
 
   create() {
-    const namespace = `@${this.module}`;
-    const namespaceConst = toConst(this.module);
+    const namespace = `@@${this.module}`;
+    const moduleConst = toConst(this.module);
 
     const types = {};
     const actions = {};
@@ -68,7 +68,7 @@ class ReduxHotModule {
       const { name, meta } = action;
       const typeNameConst = toConst(name);
       const type = `${namespace}/${typeNameConst}`;
-      const typeName = `${namespaceConst}_${typeNameConst}`;
+      const typeName = `${moduleConst}_${typeNameConst}`;
       const actionName = `${name}Action`;
 
       types[typeName] = type;
