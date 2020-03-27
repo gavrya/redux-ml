@@ -117,4 +117,5 @@ class ReduxHotModule {
   }
 }
 
-export default { ReduxHotModule };
+// eslint-disable-next-line import/prefer-default-export
+export { ReduxHotModule };
