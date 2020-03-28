@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
 
+const startsWith = (string, prefix) => typeof string === 'string' && string.indexOf(prefix) === 0;
+
 const hasProp = (object, prop) => Object.prototype.hasOwnProperty.call(object, prop);
 
 const toConst = (text) => text.replace(/([A-Z])/g, ($1) => `_${$1.toLowerCase()}`).toUpperCase();
@@ -55,6 +57,7 @@ class ReduxHotModule {
   create() {
     const namespace = `@@${this.module}`;
     const moduleConst = toConst(this.module);
+    const typePrefix = `${namespace}/`;
 
     const types = {};
     const actions = {};
@@ -67,7 +70,7 @@ class ReduxHotModule {
     Object.values(this.actionsRepo).forEach((action) => {
       const { name, meta } = action;
       const typeNameConst = toConst(name);
-      const type = `${namespace}/${typeNameConst}`;
+      const type = `${typePrefix}${typeNameConst}`;
       const typeName = `${moduleConst}_${typeNameConst}`;
       const actionName = `${name}Action`;
 
@@ -89,11 +92,17 @@ class ReduxHotModule {
     const initialState = mergeProps(defaultState, this.preloadedState);
 
     const reducer = (state = initialState, action) => {
-      if (paramTypes.includes(action.type)) {
+      const { type } = action;
+
+      if (!startsWith(type, typePrefix)) {
+        return state;
+      }
+
+      if (paramTypes.includes(type)) {
         return mergeProps(state, action.payload);
       }
 
-      if (resetTypes.includes(action.type)) {
+      if (resetTypes.includes(type)) {
         return { ...defaultState };
       }
 
