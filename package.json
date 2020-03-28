@@ -7,10 +7,16 @@
     "lib"
   ],
   "scripts": {
-    "test": "echo \"Running tests for version $npm_package_version...\"",
-    "build": "cross-env NODE_ENV=production rimraf lib && babel src -d lib",
-    "release": "yarn version --patch",
-    "preversion": "yarn test && yarn build",
+    "test:all": "echo \"Running tests for version $npm_package_version\" && yarn security && yarn outdated && yarn lint && yarn test && yarn build",
+    "security": "yarn audit",
+    "outdated": "yarn outdated",
+    "upgrade": "yarn upgrade-interactive",
+    "upgrade-latest": "yarn upgrade-interactive --latest",
+    "lint": "eslint . --ext .js",
+    "test": "echo 'running unit tests'",
+    "build": "cross-env NODE_ENV=production babel --delete-dir-on-start src -d lib",
+    "release": "yarn version",
+    "preversion": "yarn test:all",
     "postversion": "git push --tags && yarn publish --new-version $npm_package_version --tag latest && git push && echo \"Successfully released version $npm_package_version!\""
   },
   "repository": "https://github.com/gavrya/redux-hot-module.git",
@@ -39,11 +45,23 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.1",
+    "eslint-plugin-react-hooks": "^3.0.0",
+    "husky": "^4.2.3",
     "react": "^16.13.1",
     "react-redux": "^7.2.0",
-    "redux": "^4.0.5",
-    "rimraf": "^3.0.2"
+    "redux": "^4.0.5"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test:all"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
 }
