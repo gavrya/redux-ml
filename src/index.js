@@ -12,7 +12,6 @@ const mergeProps = (target, source) => {
   }
 
   const state = { ...target };
-
   const sourceProps = Object.keys(source);
   const { length } = sourceProps;
 
@@ -30,6 +29,12 @@ const mergeProps = (target, source) => {
 const addAction = (actionsRepo, name, meta) => {
   if (typeof name !== 'string') {
     throw new Error('Invalid action name.');
+  }
+
+  const trimmedName = name.trim();
+
+  if (trimmedName === '' || trimmedName !== name) {
+    throw new Error('Action name should not be empty or contain whitespace.');
   }
 
   if (hasOwnProp(actionsRepo, name)) {
@@ -60,17 +65,15 @@ class ReduxHotModule {
   }
 
   create() {
+    const types = {};
+    const actions = {};
+    const paramTypes = {};
+    const resetTypes = {};
+    const defaultState = {};
+
     const namespace = `@@${this.module}`;
     const moduleConst = toConst(this.module);
     const typePrefix = `${namespace}/`;
-
-    const types = {};
-    const actions = {};
-
-    const paramTypes = {};
-    const resetTypes = {};
-
-    let defaultState = {};
 
     const actionsInfo = Object.values(this.actionsRepo);
     const { length } = actionsInfo;
@@ -86,8 +89,9 @@ class ReduxHotModule {
 
       if (meta.isParam) {
         const { defaultValue } = meta;
+
         actions[actionName] = (value = defaultValue) => ({ type, payload: { [name]: value } });
-        defaultState = { ...defaultState, [name]: defaultValue };
+        defaultState[name] = defaultValue;
         paramTypes[type] = meta;
       } else if (meta.isEvent) {
         actions[actionName] = () => ({ type });
