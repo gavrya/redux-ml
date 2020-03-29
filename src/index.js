@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 const startsWith = (string, prefix) => typeof string === 'string' && string.indexOf(prefix) === 0;
 
-const hasProp = (object, prop) => Object.prototype.hasOwnProperty.call(object, prop);
+const hasOwnProp = (object, prop) => Object.prototype.hasOwnProperty.call(object, prop);
 
 const toConst = (text) => text.replace(/([A-Z])/g, ($1) => `_${$1.toLowerCase()}`).toUpperCase();
 
@@ -13,11 +13,16 @@ const mergeProps = (target, source) => {
 
   const state = { ...target };
 
-  Object.keys(source).forEach((prop) => {
-    if (hasProp(state, prop)) {
+  const sourceProps = Object.keys(source);
+  const { length } = sourceProps;
+
+  for (let i = 0; i < length; i += 1) {
+    const prop = sourceProps[i];
+
+    if (hasOwnProp(state, prop)) {
       state[prop] = source[prop];
     }
-  });
+  }
 
   return state;
 };
@@ -27,7 +32,7 @@ const addAction = (actionsRepo, name, meta) => {
     throw new Error('Invalid action name.');
   }
 
-  if (hasProp(actionsRepo, name)) {
+  if (hasOwnProp(actionsRepo, name)) {
     throw new Error(`Action with the name "${name}" is already exist.`);
   }
 
@@ -62,13 +67,16 @@ class ReduxHotModule {
     const types = {};
     const actions = {};
 
-    const paramTypes = [];
-    const resetTypes = [];
+    const paramTypes = {};
+    const resetTypes = {};
 
     let defaultState = {};
 
-    Object.values(this.actionsRepo).forEach((action) => {
-      const { name, meta } = action;
+    const actionsList = Object.values(this.actionsRepo);
+    const { length } = actionsList;
+
+    for (let i = 0; i < length; i += 1) {
+      const { name, meta } = actionsList[i];
       const typeNameConst = toConst(name);
       const type = `${typePrefix}${typeNameConst}`;
       const typeName = `${moduleConst}_${typeNameConst}`;
@@ -80,14 +88,14 @@ class ReduxHotModule {
         const { defaultValue } = meta;
         actions[actionName] = (value = defaultValue) => ({ type, payload: { [name]: value } });
         defaultState = { ...defaultState, [name]: defaultValue };
-        paramTypes.push(type);
+        paramTypes[type] = meta;
       } else if (meta.isEvent) {
         actions[actionName] = () => ({ type });
       } else if (meta.isReset) {
         actions[actionName] = () => ({ type });
-        resetTypes.push(type);
+        resetTypes[type] = meta;
       }
-    });
+    }
 
     const initialState = mergeProps(defaultState, this.preloadedState);
 
@@ -98,11 +106,11 @@ class ReduxHotModule {
         return state;
       }
 
-      if (paramTypes.includes(type)) {
+      if (hasOwnProp(paramTypes, type)) {
         return mergeProps(state, action.payload);
       }
 
-      if (resetTypes.includes(type)) {
+      if (hasOwnProp(resetTypes, type)) {
         return { ...defaultState };
       }
 
