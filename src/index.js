@@ -37,6 +37,12 @@ const addAction = (actionsRepo, name, meta) => {
     throw new Error('Action name should not be empty or contain whitespace.');
   }
 
+  const firstChar = trimmedName[0];
+
+  if (firstChar !== firstChar.toLowerCase()) {
+    throw new Error('Action name should be in camelCase.');
+  }
+
   if (hasOwnProp(actionsRepo, name)) {
     throw new Error(`Action with the name "${name}" is already exist.`);
   }
