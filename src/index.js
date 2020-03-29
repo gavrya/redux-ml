@@ -72,11 +72,11 @@ class ReduxHotModule {
 
     let defaultState = {};
 
-    const actionsList = Object.values(this.actionsRepo);
-    const { length } = actionsList;
+    const actionsInfo = Object.values(this.actionsRepo);
+    const { length } = actionsInfo;
 
     for (let i = 0; i < length; i += 1) {
-      const { name, meta } = actionsList[i];
+      const { name, meta } = actionsInfo[i];
       const typeNameConst = toConst(name);
       const type = `${typePrefix}${typeNameConst}`;
       const typeName = `${moduleConst}_${typeNameConst}`;
