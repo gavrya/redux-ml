@@ -107,7 +107,7 @@ class ReduxHotModule {
       }
 
       if (hasOwnProp(paramTypes, type)) {
-        return mergeProps(state, action.payload);
+        return { ...state, ...action.payload };
       }
 
       if (hasOwnProp(resetTypes, type)) {
