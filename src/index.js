@@ -131,15 +131,20 @@ class ReduxHotModule {
     const mapDispatchToProps = { ...actions };
     const withModuleProps = connect(mapStateToProps, mapDispatchToProps);
 
+    Object.freeze(types);
+    Object.freeze(actions);
+    Object.freeze(defaultState);
+    Object.freeze(mapDispatchToProps);
+
     return {
       namespace,
-      types: Object.freeze(types),
-      actions: Object.freeze(actions),
+      types,
+      actions,
       reducer,
-      defaultState: Object.freeze(defaultState),
+      defaultState,
       withModuleProps,
       mapStateToProps,
-      mapDispatchToProps: Object.freeze(mapDispatchToProps),
+      mapDispatchToProps,
     };
   }
 }
