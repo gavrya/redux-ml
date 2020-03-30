@@ -121,7 +121,7 @@ class ReduxHotModule {
       }
 
       if (hasOwnProp(resetTypes, type)) {
-        return { ...defaultState };
+        return defaultState;
       }
 
       return state;
@@ -133,13 +133,13 @@ class ReduxHotModule {
 
     return {
       namespace,
-      types,
-      actions,
+      types: Object.freeze(types),
+      actions: Object.freeze(actions),
       reducer,
-      defaultState,
+      defaultState: Object.freeze(defaultState),
       withModuleProps,
       mapStateToProps,
-      mapDispatchToProps,
+      mapDispatchToProps: Object.freeze(mapDispatchToProps),
     };
   }
 }
