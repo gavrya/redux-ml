@@ -5,7 +5,7 @@ const startsWith = (string, prefix) => typeof string === 'string' && string.inde
 const hasOwnProp = (object, prop) => Object.prototype.hasOwnProperty.call(object, prop);
 
 const toConst = (text) => text
-  .replace(/[\W_]/g, '')
+  .replace(/[\W]/g, '')
   .replace(/([a-z])([A-Z])|([a-zA-Z])([\d])|([\d])([a-zA-Z])/g, (m) => `${m[0]}_${m[1]}`)
   .toUpperCase();
 
