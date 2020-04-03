@@ -1,26 +1,30 @@
 # redux-hot-module
+
 development in progress
 
 ## Usage example
 
 ```javascript
-import { ReduxHotModule } from 'redux-hot-module';
+import { ReduxHotModule } from 'redux-hot-module'
 
-const ml = new ReduxHotModule('searchResults');
+// optional
+const preloadedState = localStorage.getItem('searchResults')
+
+const ml = new ReduxHotModule('searchResults', preloadedState)
 
 // param actions
-ml.addParamAction('posts', []);
-ml.addParamAction('selectedPost', null);
-ml.addParamAction('pageNumber', 1);
-ml.addParamAction('pageSize', 10);
-ml.addParamAction('loading', false);
-ml.addParamAction('hasNext', false);
+ml.addParamAction('posts', [])
+ml.addParamAction('selectedPost', null)
+ml.addParamAction('pageNumber', 1)
+ml.addParamAction('pageSize', 10)
+ml.addParamAction('loading', false)
+ml.addParamAction('hasNext', false)
 
 // event actions
-ml.addEventAction('loadNextEvent');
+ml.addEventAction('loadNextEvent')
 
 // reset action
-ml.addResetAction('reset');
+ml.addResetAction('reset')
 
 export const {
   namespace,
@@ -49,5 +53,5 @@ export const {
     loadNextEventAction,
     resetAction,
   },
-} = ml.create();
+} = ml.create()
 ```

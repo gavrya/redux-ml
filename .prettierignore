@@ -5,3 +5,6 @@
 node_modules
 coverage
 lib
+
+#files
+package.json

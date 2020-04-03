@@ -7,12 +7,14 @@
     "lib"
   ],
   "scripts": {
-    "test:all": "echo \"Running tests for version $npm_package_version\" && yarn security && yarn outdated && yarn lint && yarn test && yarn build",
+    "test:all": "echo \"Running tests for version $npm_package_version\" && yarn security && yarn outdated && yarn lint && yarn prettier && yarn test && yarn build",
     "security": "yarn audit",
     "outdated": "yarn outdated",
     "upgrade": "yarn upgrade-interactive",
     "upgrade-latest": "yarn upgrade-interactive --latest",
-    "lint": "eslint . --ext .js",
+    "lint": "eslint '**/*.js'",
+    "prettier": "prettier --check '**/*.{js,md}'",
+    "format": "eslint --fix '**/*.js' && prettier --write '**/*.{js,md}'",
     "test": "echo 'running unit tests'",
     "build": "cross-env NODE_ENV=production babel --delete-dir-on-start src -d lib",
     "release": "yarn version",
@@ -36,17 +38,20 @@
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-export-default-from": "^7.8.3",
     "@babel/preset-env": "^7.9.0",
     "babel-eslint": "^10.1.0",
-    "babel-preset-minify": "^0.5.1",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^3.0.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.3",
+    "prettier": "2.0.2",
     "react": "^16.13.1",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5"
@@ -61,6 +66,10 @@
   "lint-staged": {
     "*.js": [
       "eslint --fix",
+      "git add"
+    ],
+    "*.{js,md}": [
+      "prettier --write",
       "git add"
     ]
   }

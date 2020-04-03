@@ -1,7 +1,10 @@
+# dirs
+.git
 .idea
-lib
-!lib/.gitkeep
+.vscode
 node_modules
 coverage
-.nyc_output
+lib
+
+# files
 todo.md
