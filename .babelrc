@@ -1,8 +1,12 @@
 {
   "presets": [
-    ["@babel/preset-env", { "loose": true }]
+    [
+      "@babel/preset-env",
+      {
+        "loose": true,
+        "modules": false
+      }
+    ]
   ],
-  "plugins": [
-    "@babel/plugin-proposal-export-default-from"
-  ]
+  "plugins": ["@babel/plugin-proposal-export-default-from"]
 }
