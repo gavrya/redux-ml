@@ -1,10 +1,28 @@
+[![npm version](https://badge.fury.io/js/redux-hot-module.svg)](https://badge.fury.io/js/redux-hot-module)
+[![Build Status](https://travis-ci.com/gavrya/redux-hot-module.svg?branch=master)](https://travis-ci.com/gavrya/redux-hot-module)
+[![Coverage Status](https://coveralls.io/repos/github/gavrya/redux-hot-module/badge.svg?branch=master)](https://coveralls.io/github/gavrya/redux-hot-module?branch=master)
+
 # redux-hot-module
 
 development in progress
 
-## Usage example
+## Installation
 
-```javascript
+### npm
+
+```shell
+npm i redux-hot-module
+```
+
+### yarn
+
+```shell
+yarn add redux-hot-module
+```
+
+## Usage
+
+```js
 import { ReduxHotModule } from 'redux-hot-module'
 
 // optional
@@ -54,4 +72,12 @@ export const {
     resetAction,
   },
 } = ml.create()
+```
+
+### unpkg
+
+Library global name: ReduxHotModule
+
+```html
+<script src="https://unpkg.com/redux-hot-module@latest/lib/bundle.umd.min.js"></script>
 ```
