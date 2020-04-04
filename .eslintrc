@@ -1,10 +1,16 @@
 {
   "parser": "babel-eslint",
-  "extends": ["standard", "plugin:prettier/recommended"],
-  "plugins": ["prettier"],
+  "extends": [
+    "standard",
+    "plugin:prettier/recommended",
+    "plugin:jest/recommended"
+  ],
+  "plugins": ["prettier", "jest"],
   "env": {
     "browser": true,
-    "es6": true
+    "es6": true,
+    "node": true,
+    "jest": true
   },
   "globals": {
     "Atomics": "readonly",
@@ -15,6 +21,7 @@
     "sourceType": "module"
   },
   "rules": {
+    "no-console": 0,
     "strict": 0,
     "prettier/prettier": "error"
   }

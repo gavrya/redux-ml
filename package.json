@@ -3,6 +3,8 @@
   "version": "0.0.35",
   "description": "redux-hot-module",
   "main": "lib/bundle.cjs.js",
+  "module": "lib/bundle.esm.js",
+  "sideEffects": false,
   "files": [
     "lib"
   ],
@@ -15,7 +17,8 @@
     "lint": "eslint '**/*.js'",
     "prettier": "prettier --check '**/*.{js,md}'",
     "format": "eslint --fix '**/*.js' && prettier --write '**/*.{js,md}'",
-    "test": "echo 'running unit tests'",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "build": "cross-env NODE_ENV=production rollup -c",
     "release": "yarn version",
     "preversion": "yarn test:all",
@@ -42,16 +45,19 @@
     "@babel/preset-env": "^7.9.0",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^25.2.6",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.1",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.8.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.3",
+    "jest": "^25.2.7",
     "lint-staged": "^10.1.1",
     "prettier": "2.0.2",
     "react": "^16.13.1",
@@ -72,6 +78,7 @@
   "lint-staged": {
     "*.js": [
       "eslint --fix",
+      "jest --findRelatedTests",
       "git add"
     ],
     "*.{js,md}": [

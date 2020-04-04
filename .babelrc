@@ -1,12 +1,30 @@
 {
   "presets": [
     [
-      "@babel/env",
+      "@babel/preset-env",
       {
         "loose": true,
-        "modules": false
+        "modules": false,
+        "targets": {
+          "node": "current"
+        }
       }
     ]
   ],
-  "plugins": ["@babel/plugin-proposal-export-default-from"]
+  "plugins": ["@babel/plugin-proposal-export-default-from"],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "loose": true,
+            "targets": {
+              "node": "current"
+            }
+          }
+        ]
+      ]
+    }
+  }
 }
