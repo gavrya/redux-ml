@@ -2,6 +2,9 @@
 [![Build Status](https://travis-ci.com/gavrya/redux-hot-module.svg?branch=master)](https://travis-ci.com/gavrya/redux-hot-module)
 [![Coverage Status](https://coveralls.io/repos/github/gavrya/redux-hot-module/badge.svg?branch=master)](https://coveralls.io/github/gavrya/redux-hot-module?branch=master)
 
+[![minified](https://badgen.net/bundlephobia/min/redux-hot-module)](https://bundlephobia.com/result?p=redux-hot-module@latest)
+[![minified + gzip](https://badgen.net/bundlephobia/minzip/redux-hot-module)](https://bundlephobia.com/result?p=redux-hot-module@latest)
+
 # redux-hot-module
 
 development in progress
