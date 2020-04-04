@@ -7,7 +7,7 @@
 
 # redux-hot-module
 
-development in progress
+under development
 
 ## Installation
 
@@ -21,6 +21,14 @@ npm i redux-hot-module
 
 ```shell
 yarn add redux-hot-module
+```
+
+### unpkg
+
+Global name: ReduxHotModule
+
+```html
+<script src="https://unpkg.com/redux-hot-module@latest/lib/bundle.umd.min.js"></script>
 ```
 
 ## Usage
@@ -75,12 +83,4 @@ export const {
     resetAction
   }
 } = ml.create()
-```
-
-### unpkg
-
-Library global name: ReduxHotModule
-
-```html
-<script src="https://unpkg.com/redux-hot-module@latest/lib/bundle.umd.min.js"></script>
 ```

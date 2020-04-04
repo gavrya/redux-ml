@@ -23,7 +23,7 @@
     "build": "cross-env NODE_ENV=production rollup -c",
     "release": "yarn version",
     "preversion": "yarn test:all",
-    "postversion": "git push --tags && yarn publish --new-version $npm_package_version --tag latest && git push"
+    "postversion": "git push --tags --no-verify && yarn publish --new-version $npm_package_version --tag latest && git push --no-verify"
   },
   "repository": "https://github.com/gavrya/redux-hot-module.git",
   "homepage": "https://github.com/gavrya/redux-hot-module#readme",
