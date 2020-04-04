@@ -1,0 +1,19 @@
+sudo: false
+
+notifications:
+  email: false
+
+language: node_js
+
+node_js:
+  - node
+
+install:
+  - yarn install
+
+script:
+  - yarn security
+  - yarn outdated
+  - yarn lint
+  - yarn prettier
+  - yarn test:coveralls
