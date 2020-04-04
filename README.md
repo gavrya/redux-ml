@@ -59,7 +59,7 @@ export const {
     SEARCH_RESULTS_LOADING,
     SEARCH_RESULTS_HAS_NEXT,
     SEARCH_RESULTS_LOAD_NEXT_EVENT,
-    SEARCH_RESULTS_RESET,
+    SEARCH_RESULTS_RESET
   },
   actions: {
     postsAction,
@@ -69,8 +69,8 @@ export const {
     loadingAction,
     hasNextAction,
     loadNextEventAction,
-    resetAction,
-  },
+    resetAction
+  }
 } = ml.create()
 ```
 

@@ -11,31 +11,31 @@ export default {
   output: [
     {
       file: `${dist}/${bundle}.cjs.js`,
-      format: 'cjs',
+      format: 'cjs'
     },
     {
       file: `${dist}/${bundle}.esm.js`,
-      format: 'esm',
+      format: 'esm'
     },
     {
       file: `${dist}/${bundle}.umd.min.js`,
       format: 'umd',
       name: 'ReduxHotModule',
       globals: {
-        'react-redux': 'ReactRedux',
+        'react-redux': 'ReactRedux'
       },
-      plugins: [terser()],
-    },
+      plugins: [terser()]
+    }
   ],
   external: ['react-redux'],
   plugins: [
     clear({
       targets: [dist],
-      watch: true,
+      watch: true
     }),
     resolve(),
     babel({
-      exclude: 'node_modules/**', // only transpile our source code
-    }),
-  ],
+      exclude: 'node_modules/**' // only transpile our source code
+    })
+  ]
 }

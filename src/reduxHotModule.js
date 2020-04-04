@@ -49,7 +49,7 @@ class ReduxHotModule {
 
         actions[actionName] = (value = defaultValue) => ({
           type,
-          payload: { [name]: value },
+          payload: { [name]: value }
         })
         defaultState[name] = defaultValue
         paramTypes[type] = meta
@@ -97,7 +97,7 @@ class ReduxHotModule {
       defaultState,
       withModuleProps,
       mapStateToProps,
-      mapDispatchToProps,
+      mapDispatchToProps
     }
   }
 }

@@ -1,20 +1,15 @@
-const clearRegex = /[\W]/g
-
-const replaceRegex = /([a-z])([A-Z])|([a-zA-Z])([\d])|([\d])([a-zA-Z])/g
-
-const formatReplace = (m) => `${m[0]}_${m[1]}`
-
 const toConst = (text) =>
   text
-    .replace(clearRegex, '')
-    .replace(replaceRegex, formatReplace)
+    .replace(/[\W]/g, '')
+    .replace(/([a-z])([A-Z])/g, '$1_$2')
+    .replace(/([a-zA-Z])([\d])/g, '$1_$2')
+    .replace(/([\d])([a-zA-Z])/g, '$1_$2')
+    .replace(/([A-Z]{2,})([a-z])/g, '$1_$2')
     .toUpperCase()
 
-const startsWith = (string, prefix) =>
-  typeof string === 'string' && string.indexOf(prefix) === 0
+const startsWith = (string, prefix) => typeof string === 'string' && string.indexOf(prefix) === 0
 
-const hasOwnProp = (object, prop) =>
-  Object.prototype.hasOwnProperty.call(object, prop)
+const hasOwnProp = (object, prop) => Object.prototype.hasOwnProperty.call(object, prop)
 
 const mergeProps = (target, source) => {
   if (!source || typeof source !== 'object') {
