@@ -1,9 +1,8 @@
-const toConst = (text) =>
-  text
-    .replace(/([a-z])([A-Z])/g, '$1_$2')
-    .replace(/([a-zA-Z])([\d])/g, '$1_$2')
-    .replace(/([\d])([a-zA-Z])/g, '$1_$2')
-    .toUpperCase()
+const regex = /([a-z])([A-Z])|([a-zA-Z])([\d])|([\d])([a-zA-Z])/g
+
+const replacer = (m, p1, p2, p3, p4, p5, p6) => `${p1 || p3 || p5}_${p2 || p4 || p6}`
+
+const toConst = (text) => text.replace(regex, replacer).toUpperCase()
 
 const startsWith = (string, prefix) => typeof string === 'string' && string.indexOf(prefix) === 0
 
@@ -45,7 +44,7 @@ const isValidName = (name) => {
 
 const addAction = (actionsRepo, name, meta) => {
   if (!isValidName(name)) {
-    throw new Error('Action name should be a string in camelCase format.')
+    throw new Error(`Action name "${name}" should be a string in camelCase format.`)
   }
 
   if (hasOwnProp(actionsRepo, name)) {

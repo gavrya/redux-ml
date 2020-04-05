@@ -1,11 +1,10 @@
 import { connect } from 'react-redux'
-
 import { toConst, startsWith, hasOwnProp, mergeProps, isValidName, addAction } from './utils'
 
 class ReduxHotModule {
   constructor(module, preloadedState = null) {
     if (!isValidName(module)) {
-      throw new Error('Module name should be a string in camelCase format.')
+      throw new Error(`Module name "${module}" should be a string in camelCase format.`)
     }
 
     this.module = module
