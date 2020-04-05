@@ -1,9 +1,13 @@
 import { connect } from 'react-redux'
 
-import { toConst, startsWith, hasOwnProp, mergeProps, addAction } from './utils'
+import { toConst, startsWith, hasOwnProp, mergeProps, isValidName, addAction } from './utils'
 
 class ReduxHotModule {
   constructor(module, preloadedState = null) {
+    if (!isValidName(module)) {
+      throw new Error('Module name should be a string in camelCase format.')
+    }
+
     this.module = module
     this.preloadedState = preloadedState
     this.actionsRepo = {}

@@ -27,7 +27,10 @@ yarn add redux-hot-module
 ```js
 import { ReduxHotModule } from 'redux-hot-module'
 
-const ml = new ReduxHotModule('searchResults')
+// cached or mocked state (optional)
+const preloadedState = localStorage.getItem('searchResults')
+
+const ml = new ReduxHotModule('searchResults', preloadedState)
 
 // param actions
 ml.addParamAction('posts', [])

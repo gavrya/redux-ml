@@ -1,10 +1,8 @@
 const toConst = (text) =>
   text
-    .replace(/[\W]/g, '')
     .replace(/([a-z])([A-Z])/g, '$1_$2')
     .replace(/([a-zA-Z])([\d])/g, '$1_$2')
     .replace(/([\d])([a-zA-Z])/g, '$1_$2')
-    .replace(/([A-Z]{2,})([a-z])/g, '$1_$2')
     .toUpperCase()
 
 const startsWith = (string, prefix) => typeof string === 'string' && string.indexOf(prefix) === 0
@@ -31,21 +29,23 @@ const mergeProps = (target, source) => {
   return state
 }
 
-const addAction = (actionsRepo, name, meta) => {
+const isValidName = (name) => {
   if (typeof name !== 'string') {
-    throw new Error('Invalid action name.')
+    return false
   }
 
-  const trimmedName = name.trim()
+  const trimmedName = name.replace(/[\W_]/g, '')
 
   if (trimmedName === '' || trimmedName !== name) {
-    throw new Error('Action name should not be empty or contain whitespace.')
+    return false
   }
 
-  const firstChar = trimmedName[0]
+  return !Number.isInteger(parseInt(name[0]))
+}
 
-  if (firstChar !== firstChar.toLowerCase()) {
-    throw new Error('Action name should be in camelCase.')
+const addAction = (actionsRepo, name, meta) => {
+  if (!isValidName(name)) {
+    throw new Error('Action name should be a string in camelCase format.')
   }
 
   if (hasOwnProp(actionsRepo, name)) {
@@ -55,4 +55,4 @@ const addAction = (actionsRepo, name, meta) => {
   actionsRepo[name] = { name, meta }
 }
 
-export { toConst, startsWith, hasOwnProp, mergeProps, addAction }
+export { toConst, startsWith, hasOwnProp, mergeProps, isValidName, addAction }
