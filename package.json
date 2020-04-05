@@ -4,6 +4,7 @@
   "description": "redux-hot-module",
   "main": "lib/bundle.cjs.js",
   "module": "lib/bundle.esm.js",
+  "unpkg": "lib/bundle.umd.min.js",
   "sideEffects": false,
   "files": [
     "lib"
