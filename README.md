@@ -1,9 +1,8 @@
+[![minified + gzip](https://badgen.net/bundlephobia/minzip/redux-hot-module)](https://bundlephobia.com/result?p=redux-hot-module@latest)
+[![minified](https://badgen.net/bundlephobia/min/redux-hot-module)](https://bundlephobia.com/result?p=redux-hot-module@latest)
 [![npm version](https://badge.fury.io/js/redux-hot-module.svg)](https://badge.fury.io/js/redux-hot-module)
 [![Build Status](https://travis-ci.com/gavrya/redux-hot-module.svg?branch=master)](https://travis-ci.com/gavrya/redux-hot-module)
 [![Coverage Status](https://coveralls.io/repos/github/gavrya/redux-hot-module/badge.svg?branch=master)](https://coveralls.io/github/gavrya/redux-hot-module?branch=master)
-
-[![minified + gzip](https://badgen.net/bundlephobia/minzip/redux-hot-module)](https://bundlephobia.com/result?p=redux-hot-module@latest)
-[![minified](https://badgen.net/bundlephobia/min/redux-hot-module)](https://bundlephobia.com/result?p=redux-hot-module@latest)
 
 # redux-hot-module
 
@@ -21,20 +20,6 @@ npm i redux-hot-module
 
 ```shell
 yarn add redux-hot-module
-```
-
-### unpkg
-
-Global name: ReduxHotModule
-
-Requires 'react-redux' package with global name 'ReactRedux'
-
-https://github.com/reduxjs/react-redux
-
-https://cdnjs.com/libraries/react-redux
-
-```html
-<script src="https://unpkg.com/redux-hot-module@latest/lib/bundle.umd.min.js"></script>
 ```
 
 ## Usage
@@ -86,4 +71,18 @@ export const {
     resetAction
   }
 } = ml.create()
+```
+
+### unpkg
+
+Global name: ReduxHotModule
+
+Requires 'react-redux' package with 'ReactRedux' global name
+
+https://github.com/reduxjs/react-redux
+
+https://cdnjs.com/libraries/react-redux
+
+```html
+<script src="https://unpkg.com/redux-hot-module@latest/lib/bundle.umd.min.js"></script>
 ```
