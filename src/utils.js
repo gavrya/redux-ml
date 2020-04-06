@@ -1,8 +1,6 @@
-const regex = /([a-z])([A-Z])|([a-zA-Z])([\d])|([\d])([a-zA-Z])/g
+const regex = /(?=[A-Z])/
 
-const replacer = (m, p1, p2, p3, p4, p5, p6) => `${p1 || p3 || p5}_${p2 || p4 || p6}`
-
-const toConst = (text) => text.replace(regex, replacer).toUpperCase()
+const toConst = (text) => text.split(regex).join('_').toUpperCase()
 
 const startsWith = (string, prefix) => typeof string === 'string' && string.indexOf(prefix) === 0
 
@@ -28,32 +26,7 @@ const mergeProps = (target, source) => {
   return state
 }
 
-const isValidName = (name) => {
-  if (typeof name !== 'string') {
-    return false
-  }
-
-  const trimmedName = name.replace(/[\W_]/g, '')
-
-  if (trimmedName === '' || trimmedName !== name) {
-    return false
-  }
-
-  const firstChar = name[0]
-  const lastChar = name[name.length - 1]
-
-  if (firstChar === firstChar.toUpperCase() || lastChar === lastChar.toUpperCase()) {
-    return false
-  }
-
-  return !Number.isInteger(parseInt(firstChar))
-}
-
 const addAction = (actionsRepo, name, meta) => {
-  if (!isValidName(name)) {
-    throw new Error(`Action name "${name}" should be a string in lowerCamelCase format.`)
-  }
-
   if (hasOwnProp(actionsRepo, name)) {
     throw new Error(`Action with the name "${name}" is already exist.`)
   }
@@ -61,4 +34,4 @@ const addAction = (actionsRepo, name, meta) => {
   actionsRepo[name] = { name, meta }
 }
 
-export { toConst, startsWith, hasOwnProp, mergeProps, isValidName, addAction }
+export { toConst, startsWith, hasOwnProp, mergeProps, addAction }

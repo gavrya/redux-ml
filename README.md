@@ -50,6 +50,7 @@ export const {
   namespace,
   reducer,
   defaultState,
+  initialState,
   withModuleProps,
   mapStateToProps,
   mapDispatchToProps,

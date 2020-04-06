@@ -1,12 +1,8 @@
 import { connect } from 'react-redux'
-import { toConst, startsWith, hasOwnProp, mergeProps, isValidName, addAction } from './utils'
+import { toConst, startsWith, hasOwnProp, mergeProps, addAction } from './utils'
 
 class ReduxHotModule {
   constructor(module, preloadedState = null) {
-    if (!isValidName(module)) {
-      throw new Error(`Module name "${module}" should be a string in lowerCamelCase format.`)
-    }
-
     this.module = module
     this.preloadedState = preloadedState
     this.actionsRepo = {}
@@ -30,11 +26,9 @@ class ReduxHotModule {
     const paramTypes = {}
     const resetTypes = {}
     const defaultState = {}
-
     const namespace = `@@${this.module}`
     const moduleConst = toConst(this.module)
     const typePrefix = `${namespace}/`
-
     const actionsInfo = Object.values(this.actionsRepo)
     const { length } = actionsInfo
 
@@ -49,11 +43,7 @@ class ReduxHotModule {
 
       if (meta.isParam) {
         const { defaultValue } = meta
-
-        actions[actionName] = (value = defaultValue) => ({
-          type,
-          payload: { [name]: value }
-        })
+        actions[actionName] = (value = defaultValue) => ({ type, payload: { [name]: value } })
         defaultState[name] = defaultValue
         paramTypes[type] = meta
       } else if (meta.isEvent) {
@@ -87,6 +77,7 @@ class ReduxHotModule {
     Object.freeze(types)
     Object.freeze(actions)
     Object.freeze(defaultState)
+    Object.freeze(initialState)
 
     const mapStateToProps = (state) => state[namespace]
     const mapDispatchToProps = actions
@@ -98,6 +89,7 @@ class ReduxHotModule {
       actions,
       reducer,
       defaultState,
+      initialState,
       withModuleProps,
       mapStateToProps,
       mapDispatchToProps
