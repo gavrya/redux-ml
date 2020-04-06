@@ -40,8 +40,9 @@ const isValidName = (name) => {
   }
 
   const firstChar = name[0]
+  const lastChar = name[name.length - 1]
 
-  if (firstChar === firstChar.toUpperCase()) {
+  if (firstChar === firstChar.toUpperCase() || lastChar === lastChar.toUpperCase()) {
     return false
   }
 
