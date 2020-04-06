@@ -39,12 +39,18 @@ const isValidName = (name) => {
     return false
   }
 
-  return !Number.isInteger(parseInt(name[0]))
+  const firstChar = name[0]
+
+  if (firstChar === firstChar.toUpperCase()) {
+    return false
+  }
+
+  return !Number.isInteger(parseInt(firstChar))
 }
 
 const addAction = (actionsRepo, name, meta) => {
   if (!isValidName(name)) {
-    throw new Error(`Action name "${name}" should be a string in camelCase format.`)
+    throw new Error(`Action name "${name}" should be a string in lowerCamelCase format.`)
   }
 
   if (hasOwnProp(actionsRepo, name)) {

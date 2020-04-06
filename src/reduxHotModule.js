@@ -4,7 +4,7 @@ import { toConst, startsWith, hasOwnProp, mergeProps, isValidName, addAction } f
 class ReduxHotModule {
   constructor(module, preloadedState = null) {
     if (!isValidName(module)) {
-      throw new Error(`Module name "${module}" should be a string in camelCase format.`)
+      throw new Error(`Module name "${module}" should be a string in lowerCamelCase format.`)
     }
 
     this.module = module
