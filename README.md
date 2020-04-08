@@ -27,7 +27,7 @@ yarn add redux-hot-module
 ```js
 import { ReduxHotModule } from 'redux-hot-module'
 
-// cached or mocked state (optional)
+// cached or mocked state that will be merged in (optional)
 const preloadedState = localStorage.getItem('searchResults')
 
 const ml = new ReduxHotModule('searchResults', preloadedState)

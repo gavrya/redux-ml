@@ -16,7 +16,7 @@ class ReduxHotModule {
     addAction(this.actionsRepo, name, { isEvent: true })
   }
 
-  addResetAction(name) {
+  addResetAction(name = 'reset') {
     addAction(this.actionsRepo, name, { isReset: true })
   }
 
@@ -29,11 +29,11 @@ class ReduxHotModule {
     const namespace = `@@${this.module}`
     const moduleConst = toConst(this.module)
     const typePrefix = `${namespace}/`
-    const actionsInfo = Object.values(this.actionsRepo)
-    const { length } = actionsInfo
+    const actionItems = Object.values(this.actionsRepo)
+    const { length } = actionItems
 
     for (let i = 0; i < length; i += 1) {
-      const { name, meta } = actionsInfo[i]
+      const { name, meta } = actionItems[i]
       const typeNameConst = toConst(name)
       const type = `${typePrefix}${typeNameConst}`
       const typeName = `${moduleConst}_${typeNameConst}`
