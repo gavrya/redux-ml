@@ -11,7 +11,7 @@ describe('test mergeProps()', () => {
     expect(mergeProps(target, true)).toBe(target)
   })
 
-  test('should return new target object when the source object is empty', () => {
+  test('should return new object with target object props when the source object is empty', () => {
     const target = { a: 1, b: 2 }
     const source = {}
 
