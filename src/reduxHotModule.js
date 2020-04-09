@@ -29,11 +29,11 @@ class ReduxHotModule {
     const namespace = `@@${this.module}`
     const moduleConst = toConst(this.module)
     const typePrefix = `${namespace}/`
-    const actionItems = Object.values(this.actionsRepo)
-    const { length } = actionItems
+    const items = Object.values(this.actionsRepo)
+    const { length } = items
 
     for (let i = 0; i < length; i += 1) {
-      const { name, meta } = actionItems[i]
+      const { name, meta } = items[i]
       const typeNameConst = toConst(name)
       const type = `${typePrefix}${typeNameConst}`
       const typeName = `${moduleConst}_${typeNameConst}`
