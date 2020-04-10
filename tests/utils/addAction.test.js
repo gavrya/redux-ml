@@ -9,32 +9,32 @@ describe('test addAction()', () => {
 
     expect(Object.keys(actionsRepo).length).toBe(1)
     expect(typeof actionsRepo.constructor).toBe('object')
-    expect(actionsRepo.constructor).toStrictEqual({ name: 'constructor', meta })
+    expect(actionsRepo.constructor.name).toBe('constructor')
+    expect(actionsRepo.constructor.meta).toBe(meta)
 
     addAction(actionsRepo, 'toString', meta)
 
     expect(Object.keys(actionsRepo).length).toBe(2)
     expect(typeof actionsRepo.toString).toBe('object')
-    expect(actionsRepo.toString).toStrictEqual({ name: 'toString', meta })
+    expect(actionsRepo.toString.name).toBe('toString')
+    expect(actionsRepo.toString.meta).toBe(meta)
 
     addAction(actionsRepo, 'searchResults', meta)
 
     expect(Object.keys(actionsRepo).length).toBe(3)
     expect(typeof actionsRepo.searchResults).toBe('object')
-    expect(actionsRepo.searchResults).toStrictEqual({ name: 'searchResults', meta })
+    expect(actionsRepo.searchResults.name).toBe('searchResults')
+    expect(actionsRepo.searchResults.meta).toBe(meta)
   })
 
   test('should throw an exception when adding action with the same name', () => {
     const actionsRepo = {}
+    const name = 'searchResults'
     const meta = { a: 1, b: 2 }
 
-    addAction(actionsRepo, 'searchResults', meta)
+    addAction(actionsRepo, name, meta)
 
-    expect(Object.keys(actionsRepo).length).toBe(1)
-    expect(typeof actionsRepo.searchResults).toBe('object')
-    expect(actionsRepo.searchResults).toStrictEqual({ name: 'searchResults', meta })
-
-    expect(() => addAction(actionsRepo, 'searchResults', meta)).toThrowError(
+    expect(() => addAction(actionsRepo, name, meta)).toThrowError(
       `Action with the name "searchResults" is already exist.`
     )
   })

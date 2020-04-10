@@ -1,18 +1,6 @@
 import { startsWith } from '../../src/utils'
 
 describe('test startsWith()', () => {
-  test('should return false for non-string values', () => {
-    expect(startsWith(null, 'text')).toBe(false)
-    expect(startsWith(undefined, 'text')).toBe(false)
-    expect(startsWith(NaN, 'text')).toBe(false)
-    expect(startsWith(123, 'text')).toBe(false)
-    expect(startsWith(new Date(), 'text')).toBe(false)
-  })
-
-  test('should return true when searching empty in empty string', () => {
-    expect(startsWith('', '')).toBe(true)
-  })
-
   test('should starts with', () => {
     expect(startsWith('redux', 're')).toBe(true)
     expect(startsWith('10redux', 10)).toBe(true)
@@ -28,5 +16,17 @@ describe('test startsWith()', () => {
     expect(startsWith('REDUX', 'Re')).toBe(false)
     expect(startsWith('REDUX', 'black')).toBe(false)
     expect(startsWith('REDUX', 'REDUXER')).toBe(false)
+  })
+
+  test('should return false for non-string values', () => {
+    expect(startsWith(null, 'text')).toBe(false)
+    expect(startsWith(undefined, 'text')).toBe(false)
+    expect(startsWith(NaN, 'text')).toBe(false)
+    expect(startsWith(123, 'text')).toBe(false)
+    expect(startsWith(new Date(), 'text')).toBe(false)
+  })
+
+  test('should return true when searching empty in empty string', () => {
+    expect(startsWith('', '')).toBe(true)
   })
 })
