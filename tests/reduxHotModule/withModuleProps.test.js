@@ -12,9 +12,8 @@ describe('test withModuleProps()', () => {
 
   test('should call react-redux connect() with proper args', () => {
     const ml = new ReduxHotModule('moduleName')
-    const { actions, mapStateToProps, mapDispatchToProps } = ml.create()
+    const { mapStateToProps, mapDispatchToProps } = ml.create()
 
-    expect(typeof actions).toBe('object')
     expect(typeof mapStateToProps).toBe('function')
     expect(typeof mapDispatchToProps).toBe('object')
     expect(connect).toHaveBeenCalledTimes(1)
