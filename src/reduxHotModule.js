@@ -48,7 +48,7 @@ class ReduxHotModule {
         paramTypes[type] = meta
       } else if (meta.isEvent) {
         actions[actionName] = () => ({ type })
-      } else if (meta.isReset) {
+      } else {
         actions[actionName] = () => ({ type })
         resetTypes[type] = meta
       }

@@ -3,7 +3,7 @@ import { addAction } from '../../src/utils'
 describe('test addAction()', () => {
   test('should add new actions with different names', () => {
     const actionsRepo = {}
-    const meta = { a: 1, b: 2 }
+    const meta = { a: 1 }
 
     addAction(actionsRepo, 'constructor', meta)
 
@@ -12,25 +12,18 @@ describe('test addAction()', () => {
     expect(actionsRepo.constructor.name).toBe('constructor')
     expect(actionsRepo.constructor.meta).toBe(meta)
 
-    addAction(actionsRepo, 'toString', meta)
-
-    expect(Object.keys(actionsRepo).length).toBe(2)
-    expect(typeof actionsRepo.toString).toBe('object')
-    expect(actionsRepo.toString.name).toBe('toString')
-    expect(actionsRepo.toString.meta).toBe(meta)
-
     addAction(actionsRepo, 'searchResults', meta)
 
-    expect(Object.keys(actionsRepo).length).toBe(3)
+    expect(Object.keys(actionsRepo).length).toBe(2)
     expect(typeof actionsRepo.searchResults).toBe('object')
     expect(actionsRepo.searchResults.name).toBe('searchResults')
     expect(actionsRepo.searchResults.meta).toBe(meta)
   })
 
-  test('should throw an exception when adding action with the same name', () => {
+  test('should throw exception when adding action with the same name', () => {
     const actionsRepo = {}
     const name = 'searchResults'
-    const meta = { a: 1, b: 2 }
+    const meta = { a: 1 }
 
     addAction(actionsRepo, name, meta)
 

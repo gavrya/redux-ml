@@ -88,5 +88,5 @@ https://github.com/reduxjs/react-redux
 https://cdnjs.com/libraries/react-redux
 
 ```html
-<script src="https://unpkg.com/redux-hot-module@latest/lib/bundle.umd.min.js"></script>
+<script src="https://unpkg.com/redux-hot-module@latest/lib/bundle.umd.js"></script>
 ```

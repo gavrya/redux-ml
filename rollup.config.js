@@ -1,7 +1,6 @@
 import clear from 'rollup-plugin-clear'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
-import { terser } from 'rollup-plugin-terser'
 
 const dist = 'lib'
 const bundle = 'bundle'
@@ -18,13 +17,12 @@ export default {
       format: 'esm'
     },
     {
-      file: `${dist}/${bundle}.umd.min.js`,
+      file: `${dist}/${bundle}.umd.js`,
       format: 'umd',
       name: 'ReduxHotModule',
       globals: {
         'react-redux': 'ReactRedux'
-      },
-      plugins: [terser()]
+      }
     }
   ],
   external: ['react-redux'],
