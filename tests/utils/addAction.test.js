@@ -20,7 +20,7 @@ describe('test addAction()', () => {
     expect(actionsRepo.searchResults.meta).toBe(meta)
   })
 
-  test('should throw exception when adding action with the same name', () => {
+  test('should throw an exception when adding action with the same name', () => {
     const actionsRepo = {}
     const name = 'searchResults'
     const meta = { a: 1 }
