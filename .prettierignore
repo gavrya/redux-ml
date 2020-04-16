@@ -2,9 +2,9 @@
 .git
 .idea
 .vscode
-node_modules
 coverage
 lib
 
 #files
 package.json
+todo.md
