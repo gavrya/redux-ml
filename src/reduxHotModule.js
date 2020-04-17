@@ -12,8 +12,8 @@ class ReduxHotModule {
     addAction(this.actionsRepo, name, { isParam: true, defaultValue })
   }
 
-  addEventAction(name) {
-    addAction(this.actionsRepo, name, { isEvent: true })
+  addEventAction(name, defaultValue = null) {
+    addAction(this.actionsRepo, name, { isEvent: true, defaultValue })
   }
 
   addResetAction(name = 'reset') {
@@ -34,6 +34,7 @@ class ReduxHotModule {
 
     for (let i = 0; i < length; i += 1) {
       const { name, meta } = items[i]
+      const { defaultValue } = meta
       const typeNameConst = toConst(name)
       const type = `${typePrefix}${typeNameConst}`
       const typeName = `${moduleConst}_${typeNameConst}`
@@ -42,12 +43,11 @@ class ReduxHotModule {
       types[typeName] = type
 
       if (meta.isParam) {
-        const { defaultValue } = meta
         actions[actionName] = (value = defaultValue) => ({ type, payload: { [name]: value } })
         defaultState[name] = defaultValue
         paramTypes[type] = meta
       } else if (meta.isEvent) {
-        actions[actionName] = () => ({ type })
+        actions[actionName] = (value = defaultValue) => ({ type, payload: value })
       } else {
         actions[actionName] = () => ({ type })
         resetTypes[type] = meta

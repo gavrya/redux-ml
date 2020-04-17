@@ -24,7 +24,7 @@ describe('test event actions', () => {
     expect(actionNames).toContain('loadEventAction')
   })
 
-  test('should return redux action without payload', () => {
+  test('should return redux action with default value', () => {
     const ml = new ReduxHotModule('moduleName')
 
     ml.addEventAction('loadedEvent')
@@ -39,11 +39,62 @@ describe('test event actions', () => {
 
     const reduxAction = loadedEventAction()
     const expected = {
-      type: '@@moduleName/LOADED_EVENT'
+      type: '@@moduleName/LOADED_EVENT',
+      payload: null
     }
 
     expect(typeof reduxAction).toBe('object')
     expect(reduxAction).toStrictEqual(expected)
-    expect(loadedEventAction({})).toStrictEqual(expected)
+  })
+
+  test('should return redux action with provided default value', () => {
+    const ml = new ReduxHotModule('moduleName')
+
+    const defaultValue = {}
+
+    ml.addEventAction('loadedEvent', defaultValue)
+
+    const { actions } = ml.create()
+
+    expect(Object.keys(actions)).toHaveLength(1)
+
+    const { loadedEventAction } = actions
+
+    expect(typeof loadedEventAction).toBe('function')
+
+    const reduxAction = loadedEventAction()
+    const expected = {
+      type: '@@moduleName/LOADED_EVENT',
+      payload: defaultValue
+    }
+
+    expect(typeof reduxAction).toBe('object')
+    expect(reduxAction).toStrictEqual(expected)
+    expect(reduxAction.payload).toBe(defaultValue)
+  })
+
+  test('should return redux action with provided payload', () => {
+    const ml = new ReduxHotModule('moduleName')
+
+    ml.addEventAction('loadedEvent')
+
+    const { actions } = ml.create()
+
+    expect(Object.keys(actions)).toHaveLength(1)
+
+    const { loadedEventAction } = actions
+
+    expect(typeof loadedEventAction).toBe('function')
+
+    const value = {}
+    const reduxAction = loadedEventAction(value)
+    const expected = {
+      type: '@@moduleName/LOADED_EVENT',
+      payload: value
+    }
+
+    expect(typeof reduxAction).toBe('object')
+    expect(reduxAction).toStrictEqual(expected)
+    expect(reduxAction.payload).toBe(value)
   })
 })
