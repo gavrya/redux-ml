@@ -16,8 +16,8 @@ class ReduxHotModule {
     addAction(this.actionsRepo, name, { isEvent: true, defaultValue })
   }
 
-  addResetAction(name = 'reset') {
-    addAction(this.actionsRepo, name, { isReset: true })
+  addResetAction(name = 'reset', resetProps = null) {
+    addAction(this.actionsRepo, name, { isReset: true, resetProps })
   }
 
   create() {
@@ -68,7 +68,11 @@ class ReduxHotModule {
       }
 
       if (hasOwnProp(resetTypes, type)) {
-        return defaultState
+        const { resetProps } = resetTypes[type]
+
+        return Array.isArray(resetProps)
+          ? mergeProps(state, defaultState, resetProps)
+          : defaultState
       }
 
       return state

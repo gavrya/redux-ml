@@ -9,8 +9,8 @@ describe('test reset reducer', () => {
     jest.clearAllMocks()
   })
 
-  test('should always return defaultState even if preloadedState is provided', () => {
-    const ml = new ReduxHotModule('moduleName', { items: [1, 2, 3] })
+  test('should reset state to default', () => {
+    const ml = new ReduxHotModule('moduleName')
 
     ml.addParamAction('items')
     ml.addResetAction()
@@ -25,5 +25,37 @@ describe('test reset reducer', () => {
 
     expect(reducer(undefined, resetAction())).toBe(defaultState)
     expect(reducer({}, resetAction())).toBe(defaultState)
+  })
+
+  test('should reset only specific state params', () => {
+    const ml = new ReduxHotModule('moduleName')
+
+    ml.addParamAction('item1')
+    ml.addParamAction('item2')
+    ml.addParamAction('item3', 'value')
+
+    ml.addResetAction('resetOdd', ['item1', 'item3'])
+
+    const { actions, reducer, defaultState } = ml.create()
+
+    expect(typeof actions).toBe('object')
+    expect(typeof reducer).toBe('function')
+    expect(typeof defaultState).toBe('object')
+
+    const { resetOddAction } = actions
+
+    const state = {
+      item1: {},
+      item2: {},
+      item3: {}
+    }
+
+    const expected = {
+      item1: null,
+      item2: {},
+      item3: 'value'
+    }
+
+    expect(reducer(state, resetOddAction())).toStrictEqual(expected)
   })
 })

@@ -48,4 +48,27 @@ describe('test reset actions', () => {
     expect(reduxAction).toStrictEqual(expected)
     expect(resetAction([])).toStrictEqual(expected)
   })
+
+  test('should return redux action without payload when creating with reset props', () => {
+    const ml = new ReduxHotModule('moduleName')
+
+    ml.addResetAction('clearSelectors', ['one', 'two'])
+
+    const { actions } = ml.create()
+
+    expect(Object.keys(actions)).toHaveLength(1)
+
+    const { clearSelectorsAction } = actions
+
+    expect(typeof clearSelectorsAction).toBe('function')
+
+    const reduxAction = clearSelectorsAction()
+    const expected = {
+      type: '@@moduleName/CLEAR_SELECTORS'
+    }
+
+    expect(typeof reduxAction).toBe('object')
+    expect(reduxAction).toStrictEqual(expected)
+    expect(clearSelectorsAction([])).toStrictEqual(expected)
+  })
 })
