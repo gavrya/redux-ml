@@ -6,20 +6,20 @@ const startsWith = (string, prefix) => typeof string === 'string' && string.inde
 
 const hasOwnProp = (object, prop) => Object.prototype.hasOwnProperty.call(object, prop)
 
-const mergeProps = (target, source, props) => {
+const mergeProps = (target, source, filterProps) => {
   if (!source || typeof source !== 'object') {
     return target
   }
 
   const state = { ...target }
-  const isArrayProps = Array.isArray(props)
+  const hasFilterProps = Array.isArray(filterProps)
   const sourceProps = Object.keys(source)
   const { length } = sourceProps
 
   for (let i = 0; i < length; i += 1) {
     const prop = sourceProps[i]
 
-    if (hasOwnProp(state, prop) && (!isArrayProps || props.includes(prop))) {
+    if (hasOwnProp(state, prop) && (!hasFilterProps || filterProps.includes(prop))) {
       state[prop] = source[prop]
     }
   }
