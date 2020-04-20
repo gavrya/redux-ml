@@ -1,6 +1,6 @@
 {
   "name": "redux-hot-module",
-  "version": "0.0.49",
+  "version": "0.0.50",
   "description": "redux-hot-module",
   "main": "lib/bundle.cjs.js",
   "module": "lib/bundle.esm.js",
