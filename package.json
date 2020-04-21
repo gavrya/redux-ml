@@ -62,7 +62,7 @@
     "husky": "^4.2.3",
     "jest": "^25.2.7",
     "lint-staged": "^10.1.1",
-    "prettier": "2.0.4",
+    "prettier": "2.0.5",
     "react": "^16.13.1",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
