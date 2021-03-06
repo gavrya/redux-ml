@@ -12,8 +12,13 @@ describe('test types', () => {
   test('should return expected types', () => {
     const ml = new ReduxHotModule('moduleName')
 
-    ml.addParamAction('isLoading', false)
+    ml.addParamAction('isLoading', true)
     ml.addParamAction('data', [])
+
+    ml.addParamsAction('dataReady', {
+      isLoading: false,
+      data: [1, 2, 3]
+    })
 
     ml.addEventAction('loadEvent')
     ml.addEventAction('loadedEvent')
@@ -26,13 +31,14 @@ describe('test types', () => {
     const expectedTypes = {
       MODULE_NAME_IS_LOADING: '@@moduleName/IS_LOADING',
       MODULE_NAME_DATA: '@@moduleName/DATA',
+      MODULE_NAME_DATA_READY: '@@moduleName/DATA_READY',
       MODULE_NAME_LOAD_EVENT: '@@moduleName/LOAD_EVENT',
       MODULE_NAME_LOADED_EVENT: '@@moduleName/LOADED_EVENT',
       MODULE_NAME_RESET: '@@moduleName/RESET',
       MODULE_NAME_RESET_ALL: '@@moduleName/RESET_ALL'
     }
 
-    expect(Object.keys(types)).toHaveLength(6)
+    expect(Object.keys(types)).toHaveLength(7)
     expect(types).toStrictEqual(expectedTypes)
   })
 

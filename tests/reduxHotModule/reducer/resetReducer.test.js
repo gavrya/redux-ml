@@ -13,7 +13,7 @@ describe('test reset reducer', () => {
     const ml = new ReduxHotModule('moduleName')
 
     ml.addParamAction('items')
-    ml.addResetAction()
+    ml.addResetAction('reset')
 
     const { actions, reducer, defaultState } = ml.create()
 

@@ -4,35 +4,30 @@ const toConst = (text) => text.split(regex).join('_').toUpperCase()
 
 const startsWith = (string, prefix) => typeof string === 'string' && string.indexOf(prefix) === 0
 
-const hasOwnProp = (object, prop) => Object.prototype.hasOwnProperty.call(object, prop)
+const hasProp = (object, prop) => Object.prototype.hasOwnProperty.call(object, prop)
 
-const mergeProps = (target, source, filterProps) => {
-  if (!source || typeof source !== 'object') {
-    return target
-  }
+const mergeProps = (to, from, props) => {
+  const merged = { ...to }
 
-  const state = { ...target }
-  const hasFilterProps = Array.isArray(filterProps)
-  const sourceProps = Object.keys(source)
-  const { length } = sourceProps
-
-  for (let i = 0; i < length; i += 1) {
-    const prop = sourceProps[i]
-
-    if (hasOwnProp(state, prop) && (!hasFilterProps || filterProps.includes(prop))) {
-      state[prop] = source[prop]
+  props.forEach((prop) => {
+    if (hasProp(merged, prop) && hasProp(from, prop)) {
+      merged[prop] = from[prop]
     }
-  }
+  })
 
-  return state
+  return merged
 }
 
 const addAction = (actionsRepo, name, meta) => {
-  if (hasOwnProp(actionsRepo, name)) {
+  if (typeof name !== 'string') {
+    throw new Error(`Action name is invalid.`)
+  }
+
+  if (hasProp(actionsRepo, name)) {
     throw new Error(`Action with the name "${name}" is already exist.`)
   }
 
   actionsRepo[name] = { name, meta }
 }
 
-export { toConst, startsWith, hasOwnProp, mergeProps, addAction }
+export { toConst, startsWith, hasProp, mergeProps, addAction }

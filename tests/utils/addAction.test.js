@@ -20,6 +20,14 @@ describe('test addAction()', () => {
     expect(actionsRepo.searchResults.meta).toBe(meta)
   })
 
+  test('should throw an exception when adding action with invalid name', () => {
+    const actionsRepo = {}
+    const name = null
+    const meta = { a: 1 }
+
+    expect(() => addAction(actionsRepo, name, meta)).toThrowError(`Action name is invalid.`)
+  })
+
   test('should throw an exception when adding action with the same name', () => {
     const actionsRepo = {}
     const name = 'searchResults'
