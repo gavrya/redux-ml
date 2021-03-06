@@ -12,7 +12,7 @@ describe('test reset actions', () => {
   test('should have expected name', () => {
     const ml = new ReduxHotModule('moduleName')
 
-    ml.addResetAction()
+    ml.addResetAction('reset')
     ml.addResetAction('clear')
 
     const { actions } = ml.create()
@@ -29,7 +29,7 @@ describe('test reset actions', () => {
   test('should return redux action without payload', () => {
     const ml = new ReduxHotModule('moduleName')
 
-    ml.addResetAction()
+    ml.addResetAction('reset')
 
     const { actions } = ml.create()
 
