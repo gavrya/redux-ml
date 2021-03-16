@@ -1,4 +1,6 @@
-import { connect } from 'react-redux'
+import { useMemo } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect, useSelector, useDispatch } from 'react-redux'
 import { toConst, startsWith, hasProp, mergeProps, addAction } from './utils'
 
 class ReduxHotModule {
@@ -97,11 +99,22 @@ class ReduxHotModule {
       return state
     }
 
-    ;[types, actions, defaultState, initialState].forEach((obj) => Object.freeze(obj))
+    ;[types, actions, defaultState, initialState].forEach(Object.freeze)
 
     const mapStateToProps = (state) => state[namespace]
     const mapDispatchToProps = actions
     const withModuleProps = connect(mapStateToProps, mapDispatchToProps)
+
+    const useModuleProps = () => {
+      const dispatch = useDispatch()
+      const state = useSelector((state) => state[namespace])
+
+      return useMemo(() => {
+        const actions = bindActionCreators(mapDispatchToProps, dispatch)
+
+        return { ...state, ...actions }
+      }, [dispatch, state])
+    }
 
     return {
       namespace,
@@ -111,6 +124,7 @@ class ReduxHotModule {
       defaultState,
       initialState,
       withModuleProps,
+      useModuleProps,
       mapStateToProps,
       mapDispatchToProps
     }
